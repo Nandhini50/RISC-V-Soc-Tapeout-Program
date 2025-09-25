@@ -17,3 +17,11 @@ View waveform:
 
 gtkwave sim/wave.vcd
  you can view the invoke of iverilog by cloning all the files from git
+   week 1/d1 w1.png
+GTKWave
+
+GTKWave is a waveform viewer used to visualize signal activity from Verilog/VHDL simulations.
+It reads VCD (Value Change Dump), LXT, or FST files generated during simulation.
+Helps debug timing, check logic, and verify your DUT (Design Under Test).
+
+for example the GTKWave waveform can be viewed in day1/gtkwave.png
