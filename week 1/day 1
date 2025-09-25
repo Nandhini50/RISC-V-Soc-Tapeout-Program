@@ -1,1 +1,7 @@
+INTRODUCTION TO IVERILOG DESIGN TEST BENCH
+Simulator
+   A simulator is a software or hardware tool that imitates the behavior of a real-world system, circuit, or process so you can study, test, or verify it without actually building the physical system.
+   Basically here RTL design is checked for its adherence to the spec by simulating the design
 
+Here , IVERILOG is the tool is used as simulator
+     
