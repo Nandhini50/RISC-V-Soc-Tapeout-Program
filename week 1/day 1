@@ -5,3 +5,15 @@ Simulator
 
 Here , IVERILOG is the tool is used as simulator
      
+▶️ Running the Simulation
+
+Compile and simulate:
+
+iverilog -o sim/sim.out src/design.v tb/testbench.v
+vvp sim/sim.out
+
+
+View waveform:
+
+gtkwave sim/wave.vcd
+ you can view the invoke of iverilog by cloning all the files from git
