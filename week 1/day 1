@@ -1,8 +1,8 @@
 INTRODUCTION TO IVERILOG DESIGN TEST BENCH
 Simulator
-   A simulator is a software or hardware tool that imitates the behavior of a real-world system, circuit, or process so you can 
-study, test, or verify it without actually building the physical system.
-   Basically here RTL design is checked for its adherence to the spec by simulating the design
+       A simulator is a software or hardware tool that imitates the behavior of a real-world system, circuit, or process so you can 
+   study, test, or verify it without actually building the physical system.
+      Basically here RTL design is checked for its adherence to the spec by simulating the design
 
 Here , IVERILOG is the tool is used as simulator
      
@@ -77,25 +77,25 @@ lOGIC SYNTHESIS
 
 🔹 2. Example: AND2 slow / medium / fast
 
-   AND2_X1 (slow, low drive)
+     AND2_X1 (slow, low drive)
 
-   Small transistors → smaller area, lower leakage, less dynamic power.
+    Small transistors → smaller area, lower leakage, less dynamic power.
 
-   But slower, can’t drive heavy loads (large fanout).
+     But slower, can’t drive heavy loads (large fanout).
 
-   AND2_X2 (medium drive)
+     AND2_X2 (medium drive)
 
-   Medium transistor sizing.
+     Medium transistor sizing.
 
-   Balanced speed vs area/power.
+     Balanced speed vs area/power.
 
-   AND2_X4 or AND2_X8 (fast, high drive)
+     AND2_X4 or AND2_X8 (fast, high drive)
 
-   Large transistors → faster switching, stronger drive (can drive long wires or many loads).
+     Large transistors → faster switching, stronger drive (can drive long wires or many loads).
 
-   But consumes more area and power.
+     But consumes more area and power.
 
-   👉 Same applies to 3-input versions (AND3, NAND3, OR3, etc.), just with an extra input.
+    👉 Same applies to 3-input versions (AND3, NAND3, OR3, etc.), just with an extra input.
 
 🔹 3. Why the library provides all these
 
@@ -111,27 +111,27 @@ lOGIC SYNTHESIS
 
 🔹 4. Analogy
 
-   Think of it like light bulbs:
+    Think of it like light bulbs:
 
-   A 5W bulb (low drive): small, low power, dimmer (slow).
+     A 5W bulb (low drive): small, low power, dimmer (slow).
 
-   A 10W bulb (medium): balanced.
+     A 10W bulb (medium): balanced.
 
-   A 20W bulb (high drive): brighter (fast), but consumes more electricity and is bigger.
+     A 20W bulb (high drive): brighter (fast), but consumes more electricity and is bigger.
 
-   Same “function” (lighting), but different strengths depending on what you need.
+     Same “function” (lighting), but different strengths depending on what you need.
 
 🔹 5. Practical Example (Sky130)
 
-   In Sky130 (and other libraries), you’ll see cells like:
+     In Sky130 (and other libraries), you’ll see cells like:
 
-   sky130_fd_sc_hd__and2_0 → AND2, lowest drive strength.
+     sky130_fd_sc_hd__and2_0 → AND2, lowest drive strength.
 
-   sky130_fd_sc_hd__and2_2 → AND2, medium drive strength.
+     sky130_fd_sc_hd__and2_2 → AND2, medium drive strength.
 
-   sky130_fd_sc_hd__and2_4 → AND2, highest drive strength.
+     sky130_fd_sc_hd__and2_4 → AND2, highest drive strength.
 
-   Here _0, _2, _4 represent different transistor sizings → affecting speed, power, area.
+     Here _0, _2, _4 represent different transistor sizings → affecting speed, power, area.
 
 Logic synthesis is the crucial step that transforms high-level RTL descriptions written in 
 Verilog or SystemVerilog into an optimized gate-level netlist that can be implemented on real
