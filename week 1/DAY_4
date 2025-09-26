@@ -1,1 +1,47 @@
+Gate Level Synthesis-GLS
 
+GLS stands for Gate-Level Synthesis
+In digital design:
+    GLS is the process of converting a RTL (Register Transfer Level) description of a digital circuit into a gate-level netlist.
+    The gate-level netlist contains actual logic gates (AND, OR, NAND, NOR) and flip-flops that can be implemented in hardware.
+
+Basically: RTL → GLS → Gate-level netlist → Physical design
+
+   Steps in GLS
+      Input: RTL code (Verilog code in combinational and sequential logic).
+      Synthesis: Convert RTL into a network of gates.
+      Optimization: Reduce area, improve speed, or reduce power.
+      Output: Gate-level netlist mapped to a technology library.
+
+   
+   Purpose of GLS:
+       Technology Mapping:
+          RTL is abstract; GLS converts it into gates from a specific library, ready for chip fabrication.
+       Optimization:
+          Minimizes area, timing, and power automatically.
+          Ensures the design meets timing constraints (setup/hold times).
+       Verification:
+          After GLS, you can run Gate-Level Simulation (GLS) to check timing and logical correctness before sending to the foundry.
+       Preparation for Physical Design:
+          After GLS, the netlist is ready for placement & routing in tools like Cadence Innovus or Synopsys IC Compiler.
+
+Synthesis vs Simulation Mismatch due to Missing Sensitivity List
+     Simulation depends on sensitivity list
+           In RTL simulation, an always block executes only when signals in the sensitivity list change.
+     Synthesis ignores sensitivity list
+           The synthesis tool reads the logic inside the block and generates hardware gates independent of sensitivity list.
+
+Problem if sensitivity list is incomplete
+    If you forget to include a signal, simulation won’t update when that signal changes.
+    But synthesis will still generate correct logic gates.
+    Mismatch arises
+    RTL Simulation: May produce stale/incorrect outputs.
+    Post-Synthesis / Hardware: Works correctly, since gates respond to all inputs.
+
+Example
+
+always @(a)   // 'b' is missing here
+   y = a & b;
+
+Simulation: y changes only when a changes.
+Synthesis: y = a AND b (correct hardware behavior).
