@@ -1,1 +1,61 @@
+COMBINATIONAL AND SEQUENTIAL LOGIC OPTIMIZATIONS
+  Logic Synthesis is the process of converting a high-level hardware description (like in Verilog or VHDL) into a gate-level netlist that can be physically implemented on a chip.
+     Input: RTL (Register Transfer Level) code
+     Output: Optimized gate-level netlist made of logic gates (AND, OR, NOT) and flip-flops.
+  
+  Purpose of Logic Synthesis:
+       Convert abstract RTL into hardware implementable gates.
+       Optimize for area, speed, and power.
+       
+2. Types of Logic Synthesis
+    Logic synthesis is broadly divided into
+           Combinational Logic Synthesis
+           Sequential Logic Synthesis.
+
+A. Combinational Logic Synthesis
+
+Definition:
+      Focuses on logic circuits without memory—outputs depend only on current inputs, not past values.
+
+Steps in Combinational Logic Synthesis:
+
+     Boolean Expression / RTL Input:
+         Example: F = A & B | C
+     Optimization:
+         Minimize the number of gates (area) or reduce propagation delay (speed).
+     Techniques:
+         Boolean algebra simplification
+         Karnaugh Maps (K-map)
+         Software tools (Yosys, Design Compiler)
+         Technology Mapping:
+       Map optimized Boolean expressions to actual gates from the technology library (e.g., 2-input NAND, NOR gates).
+
+
+
+B. Sequential Logic Synthesis
+
+Definition:
+      Focuses on circuits with memory—outputs depend on current inputs and previous states.
+      Includes flip-flops, latches, and registers.
+
+Steps in Sequential Logic Synthesis:
+
+   Example: 
+         always @(posedge clk) q <= d; (D flip-flop)
+
+    State Minimization / Optimization:
+          Reduce number of states in finite state machines (FSM).
+          Optimize transitions to reduce logic.
+    Technology Mapping:
+          Map combinational parts to gates.
+          Map sequential parts to flip-flops/latches from the library.
+
+Example:
+
+        FSM for a sequence detector:
+        States: S0 → S1 → S2
+        Outputs depend on both input and current state
+        Logic synthesis converts FSM into:
+        Combinational logic (for next-state and output)
+        Flip-flops (to store current state)
 
