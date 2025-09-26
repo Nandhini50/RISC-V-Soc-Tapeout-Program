@@ -1,0 +1,88 @@
+TIMING LIBS,HIERARCHICAL VS FLAT SYNTHESIS AND EFFICIENT FLOP 
+
+Timing Libs
+
+A timing library (usually the .lib file in Liberty format) is a file that describes how fast a standard cell works under different conditions.
+
+Think of it as a datasheet for every logic gate (inverter, NAND, flip-flop, etc.) in a standard cell library.
+It contains delay, power, and setup/hold timing numbers that EDA tools use to make sure your chip will actually meet timing in silicon.
+Used by synthesis, STA (Static Timing Analysis), and P&R tools.
+sky130_fd_sc_hd__tt_025C_1v80.lib is a standard cell timing library file from the SkyWater SKY130 PDK (Process Design Kit). The name itself is very descriptive, and each part has meaning.
+
+🔎 Breaking down the naming
+sky130----Refers to the process node: SkyWater 130 nm technology.
+
+fd_sc_hd
+fd → Foundry (design flow specific tag).
+sc → Standard Cell.
+hd → High Density library (cells optimized for area, trade-offs in speed/leakage).
+
+Other variants may exist like:
+
+hs → High Speed
+lp → Low Power
+ms → Mixed Signal
+
+tt
+Process corner = Typical-Typical.
+Indicates average transistor parameters (neither too fast nor too slow).
+
+025C
+
+Temperature = 25 °C (room temperature).
+Libraries exist at different operating temps like 0C, 85C, 125C.
+
+
+1v80
+Operating voltage = 1.80 V.
+
+.lib
+The file format = Liberty (.lib).
+Contains timing, power, and functional models of each standard cell.
+The data present in this library is showcased at week1/day 2.1
+
+The main difference between these two standard cells is in their drive strength.
+     and2_0: This is a 2-input AND gate with the smallest drive strength.
+             It has smaller transistors, so the area consumption is low.
+             But because the transistors are weaker, the propagation delay is higher when driving larger loads.
+
+     and2_4: This is the same 2-input AND gate but with a larger drive strength (suffix _4 means stronger drive).
+             It uses bigger transistors, so it consumes more area.
+             The advantage is that it can drive heavier loads faster, which results in lower delay.
+
+Hierachical synthesis------>
+Hierarchical synthesis is a design methodology in digital VLSI where the RTL design is synthesized block by block (hierarchically) rather than flattening the entire design into one big netlist.
+
+In hierarchical synthesis, each module (sub-block) is synthesized separately, then combined at the top level.
+
+🔎 What the picture shows---->week1/hierarchical
+
+       The top module here is multiple_modules.
+       It doesn’t contain gate-level logic itself, but instead instantiates two sub-modules:
+               sub_module1 (instance name u1)
+               sub_module2 (instance name u2)
+       Inputs:
+               a, b go into sub_module1.
+               Output of sub_module1 = net1.
+               net1 and c feed into sub_module2.
+        Final output: y from sub_module2.
+
+🏗 Hierarchical Synthesis view
+       Each sub-module is preserved during synthesis.
+       Instead of flattening everything into a single netlist, the tool keeps the hierarchy.
+       That’s why you see u1 sub_module1 and u2 sub_module2 as separate blocks.
+
+
+Flatten Systhesis------>
+In flat synthesis, the tool removes all module boundaries and directly optimizes the entire design as a single unit.
+That means instead of keeping sub_module1 and sub_module2 as separate blocks, the synthesis tool will inline their logic into the top module.
+If we run flat synthesis, the tool removes the boxes for sub_module1 and sub_module2.
+Instead of two modules connected together, the synthesis engine inlines all the gates into one flat netlist.
+
+So:
+      Inputs a and b → directly feed into the actual gates that were inside sub_module1.
+      The intermediate signal net1 is now just a wire that connects those gates to the gates from sub_module.
+      Input c also directly connects into the gates from sub_module2.
+      Final output y comes from the combined logic.
+👉 In the flat, the blocks u1 and u2 would disappear, leaving only a single-level netlist where a, b, c connect directly into logic gates, and the output y comes out.
+     This is showen in the picture attached week1/flatten1 and week1/flatten2
