@@ -86,3 +86,53 @@ So:
       Final output y comes from the combined logic.
 👉 In the flat, the blocks u1 and u2 would disappear, leaving only a single-level netlist where a, b, c connect directly into logic gates, and the output y comes out.
      This is showen in the picture attached week1/flatten1 and week1/flatten2
+
+FLOP in digital circuits...>
+
+🔎 Synchronization with Clock using Flip-Flops
+        In a synchronous digital system, all operations are coordinated by a global clock signal.
+        A flip-flop acts like a checkpoint that captures input data (D) only at a specific clock edge (rising or falling).
+    👉 This means:
+          Before the clock edge → the data at the input may change freely.
+          At the clock edge → the flip-flop samples the input and transfers it to the output.
+          After the clock edge → the output holds that value stable until the next clock event.
+Avoids glitches from combinational logic
+         Combinational circuits often have temporary spikes/glitches due to propagation delays.
+         Without a flip-flop, these glitches might directly affect the next stage.
+         A flop ensures that only the final stable value (present at the clock edge) is captured.
+Provides timing discipline
+         With flops at regular intervals, every part of the circuit works in lockstep with the clock.
+         This makes it possible to analyze timing (setup/hold) and guarantee correct operation.
+
+Enables pipelining
+          By inserting flip-flops between logic stages, each stage only needs to finish its computation within one clock cycle.
+          This synchronization allows higher clock frequencies.
+
+Prevents metastability in data transfer
+          In multi-clock systems, synchronizer flops are used to align signals from one clock domain to another.
+          This prevents metastability from spreading into the system.
+
+1️⃣ D Flip-Flop with Synchronous Reset
+          Reset is checked only on the active clock edge.
+          If reset = 1 at the rising clock edge → output Q goes to 0.
+          If reset = 0 at the rising clock edge → normal operation (Q follows D).
+
+Behavior:
+       Reset action happens in sync with the clock.
+       Until the next clock edge, the flop ignores the reset.
+
+2️⃣ D Flip-Flop with Asynchronous Reset   shown week1/asyncreset.flop
+          Reset is checked at any time, independent of the clock.
+          If reset = 1 → output Q immediately goes to 0, regardless of the clock.
+          When reset returns to 0, the flip-flop resumes normal operation on the next clock edge.
+
+Behavior:
+          Reset happens immediately, no need to wait for the clock.
+ 
+3️⃣ D Flip-Flop with Asynchronous Reset and Synchronous Release
+          This is a hybrid approach.
+          Reset assertion = asynchronous → output is forced to 0 immediately.
+          Reset de-assertion = synchronous → flop comes out of reset only on the next clock edge.
+
+
+     
